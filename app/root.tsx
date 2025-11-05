@@ -6,9 +6,21 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import "@mantine/notifications/styles.css";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+
+import "@mantine/core/styles.css";
+
+import {
+  ColorSchemeScript,
+  Container,
+  MantineProvider,
+  Notification,
+  mantineHtmlProps,
+} from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,7 +37,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" {...mantineHtmlProps}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,7 +45,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <MantineProvider defaultColorScheme="dark">
+          <Notifications />
+          {children}
+        </MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

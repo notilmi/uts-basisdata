@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  # MySQL Service
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Polsri2025 # !! CHANGE THIS !!
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: Polsri2025 # !! CHANGE THIS !!
+    ports:
+      # Exposes MySQL on the default port 3306
+      - "3306:3306"
+    volumes:
+      # Persists database data
+      - mysql_data:/var/lib/mysql
+
+  # PHPMyAdmin Service
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      # Access PHPMyAdmin on http://localhost:8080
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql # Connects to the 'mysql' service defined above
+      MYSQL_ROOT_PASSWORD: Polsri2025 # !! MUST MATCH MYSQL_ROOT_PASSWORD !!
+    depends_on:
+      - mysql
+
+# Defines the named volume for data persistence
+volumes:
+  mysql_data:
