@@ -80,18 +80,31 @@ export default function TambahMagang({
         message: "Magang berhasil ditambahkan",
         color: "green",
       });
+      setTimeout(() => {
+        navigate("/magang");
+      }, 500);
     }
-  }, [actionData]);
+  }, [actionData, navigate]);
 
-  const dosenOptions = dosenList.map((dosen) => ({
-    value: String(dosen.id),
-    label: `${dosen.nama} (${dosen.nip})`,
-  }));
+  const dosenOptions = React.useMemo(
+    () =>
+      dosenList.map((dosen) => ({
+        value: String(dosen.id),
+        label: `${dosen.nama} (${dosen.nip})`,
+      })),
+    [dosenList],
+  );
 
-  const mahasiswaOptions = mahasiswaList.map((mahasiswa) => ({
-    value: String(mahasiswa.id),
-    label: `${mahasiswa.nama} (${mahasiswa.nim})`,
-  }));
+  const mahasiswaOptions = React.useMemo(
+    () =>
+      mahasiswaList.map((mahasiswa) => ({
+        value: String(mahasiswa.id),
+        label: `${mahasiswa.nama} (${mahasiswa.nim})`,
+      })),
+    [mahasiswaList],
+  );
+
+  console.log("[POP]", mahasiswaOptions);
 
   return (
     <Container size={"lg"} py={"lg"}>
@@ -133,6 +146,13 @@ export default function TambahMagang({
               hidden
               name="dosen_pembimbing_id"
               value={selectedDosen || ""}
+              readOnly
+            />
+            <input
+              hidden
+              name="mahasiswa_ids"
+              value={selectedMahasiswa.join(",")}
+              readOnly
             />
 
             <Input.Wrapper label="Tanggal Mulai" required withAsterisk>
@@ -147,15 +167,13 @@ export default function TambahMagang({
               label="Mahasiswa"
               placeholder="Pilih mahasiswa"
               data={mahasiswaOptions}
+              comboboxProps={{
+                keepMounted: false,
+              }}
               value={selectedMahasiswa}
               onChange={setSelectedMahasiswa}
               searchable
               clearable
-            />
-            <input
-              hidden
-              name="mahasiswa_ids"
-              value={selectedMahasiswa.join(",")}
             />
 
             <Group justify="flex-end">

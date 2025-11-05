@@ -46,8 +46,12 @@ export default function TambahMahasiswa({ actionData }: TambahMahasiswaProps) {
         message: "Mahasiswa berhasil ditambahkan",
         color: "green",
       });
+      // Navigate back to mahasiswa list after successful creation
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
     }
-  }, [actionData]);
+  }, [actionData, navigate]);
 
   return (
     <Container size={"lg"} py={"lg"}>

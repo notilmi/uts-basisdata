@@ -93,18 +93,30 @@ export default function EditMagang({
         message: "Data magang berhasil diperbarui",
         color: "green",
       });
+      // Navigate back to magang list after successful update
+      setTimeout(() => {
+        navigate("/magang");
+      }, 500);
     }
-  }, [actionData]);
+  }, [actionData, navigate]);
 
-  const dosenOptions = dosenList.map((dosen) => ({
-    value: String(dosen.id),
-    label: `${dosen.nama} (${dosen.nip})`,
-  }));
+  const dosenOptions = React.useMemo(
+    () =>
+      dosenList.map((dosen) => ({
+        value: String(dosen.id),
+        label: `${dosen.nama} (${dosen.nip})`,
+      })),
+    [dosenList],
+  );
 
-  const mahasiswaOptions = mahasiswaList.map((mahasiswa) => ({
-    value: String(mahasiswa.id),
-    label: `${mahasiswa.nama} (${mahasiswa.nim})`,
-  }));
+  const mahasiswaOptions = React.useMemo(
+    () =>
+      mahasiswaList.map((mahasiswa) => ({
+        value: String(mahasiswa.id),
+        label: `${mahasiswa.nama} (${mahasiswa.nim})`,
+      })),
+    [mahasiswaList],
+  );
 
   // Format dates for input fields (YYYY-MM-DD)
   const formatDate = (date: Date) => {
@@ -187,6 +199,9 @@ export default function EditMagang({
               data={mahasiswaOptions}
               value={selectedMahasiswa}
               onChange={setSelectedMahasiswa}
+              comboboxProps={{
+                keepMounted: false,
+              }}
               searchable
               clearable
             />

@@ -42,8 +42,12 @@ export default function TambahDosen({ actionData }: TambahDosenProps) {
         message: "Dosen berhasil ditambahkan",
         color: "green",
       });
+      // Navigate back to dosen list after successful creation
+      setTimeout(() => {
+        navigate("/dosen");
+      }, 500);
     }
-  }, [actionData]);
+  }, [actionData, navigate]);
 
   return (
     <Container size={"lg"} py={"lg"}>

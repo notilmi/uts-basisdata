@@ -9,9 +9,9 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@mantine/core": "^8.3.5",
-    "@mantine/hooks": "^8.3.5",
-    "@mantine/notifications": "^8.3.5",
+    "@mantine/core": "^8.3.6",
+    "@mantine/hooks": "^8.3.6",
+    "@mantine/notifications": "^8.3.6",
     "@react-router/node": "^7.9.2",
     "@react-router/serve": "^7.9.2",
     "@tabler/icons-react": "^3.35.0",

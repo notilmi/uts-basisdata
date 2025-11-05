@@ -11,6 +11,7 @@ import type { Route } from "~/types/routes";
 import { AppShell, Burger, Group } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { Outlet } from "react-router";
+import { Header } from "./Header";
 
 interface DashboardLayoutProps {}
 
@@ -49,14 +50,12 @@ export default function DashboardLayout({}: DashboardLayoutProps) {
     <AppShell
       padding="md"
       header={{
-        height: { base: isMobile ? 60 : 0 },
-      }}
-      navbar={{
-        width: { base: 200, md: 300 },
-        breakpoint: "sm",
-        collapsed: { mobile: !opened },
+        height: { base: 60 },
       }}
     >
+      <AppShell.Header>
+        <Header />
+      </AppShell.Header>
       <AppShell.Main>
         <Outlet />
       </AppShell.Main>
